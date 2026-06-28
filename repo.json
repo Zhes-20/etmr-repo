@@ -10,7 +10,7 @@
       "author": "Zhes",
       "description": "Динозаврик, портированный прямо из хроум к вам на телефонную смешанную реальность!",
       "display": "window",
-      "type": "lua",
+      "type": "universal",
       "minApiVersion": 1,
       "icon": "apps/com.zhes.dinorun/icon.png",
       "preview": "apps/com.zhes.dinorun/preview.png",
