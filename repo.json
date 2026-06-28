@@ -1,7 +1,7 @@
 {
   "name": "Official ETMR Store",
   "version": 2,
-  "updated": "2026-06-28T17:01:52.289955Z",
+  "updated": "2026-06-28T17:12:55.365558Z",
   "apps": [
     {
       "id": "com.zhes.dinorun",
@@ -22,6 +22,32 @@
         }
       },
       "createdAt": "2026-06-27T22:33:29+00:00",
+      "updatedAt": "2026-06-28"
+    },
+    {
+      "id": "com.zhes.counter",
+      "name": "Counter",
+      "version": "30.07.23",
+      "author": "Zhes",
+      "description": "Просто счётчик, который позволяет добавлять по единичке или включить авторежим и включить секундомер.",
+      "display": "window",
+      "type": "bundle",
+      "minApiVersion": 1,
+      "icon": "apps/com.zhes.counter/icon.png",
+      "preview": "apps/com.zhes.counter/preview.png",
+      "platforms": {
+        "iOS": {
+          "url": "apps/com.zhes.counter/app_ios.emr",
+          "size": 651535,
+          "sha256": "68aabf8839063950d88a005a261f9bbc3f48688f4639cfc2269511e3272fbc50"
+        },
+        "Android": {
+          "url": "apps/com.zhes.counter/app_android.emr",
+          "size": 652326,
+          "sha256": "fd31bde60e474edaa28d5a2c168a1316b4ac4eb140b29a5ffdf4470e11c9d062"
+        }
+      },
+      "createdAt": "2026-06-28T17:08:32+00:00",
       "updatedAt": "2026-06-28"
     }
   ]
