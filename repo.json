@@ -1,7 +1,7 @@
 {
   "name": "Official ETMR Store",
   "version": 2,
-  "updated": "2026-07-01T19:10:15.043285Z",
+  "updated": "2026-07-01T20:15:32.995447Z",
   "apps": [
     {
       "id": "com.zhes.counter",
@@ -90,6 +90,27 @@
         }
       },
       "createdAt": "2026-07-01T19:02:56+00:00",
+      "updatedAt": "2026-07-01"
+    },
+    {
+      "id": "com.zhes.shoutbox",
+      "name": "ShoutBox",
+      "version": "1.0.0",
+      "author": "Zhes",
+      "description": "Прикольный глобальный чат, который запоминает последние 7 сообщений. Не пишите ничего важного, это видят все!",
+      "display": "window",
+      "type": "universal",
+      "minApiVersion": 1,
+      "icon": "apps/com.zhes.shoutbox/icon.png",
+      "preview": "apps/com.zhes.shoutbox/preview.png",
+      "platforms": {
+        "Universal": {
+          "url": "apps/com.zhes.shoutbox/app_universal.emr",
+          "size": 644380,
+          "sha256": "4616e0f3d54619078c75889b64e5a38c97078b60cf0f0eeb0d3edf593cc402c5"
+        }
+      },
+      "createdAt": "2026-07-01T20:14:37+00:00",
       "updatedAt": "2026-07-01"
     }
   ]
