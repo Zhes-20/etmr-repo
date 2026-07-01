@@ -1,7 +1,7 @@
 {
   "name": "Official ETMR Store",
   "version": 2,
-  "updated": "2026-07-01T12:13:39.524910Z",
+  "updated": "2026-07-01T14:19:52.794605Z",
   "apps": [
     {
       "id": "com.zhes.counter",
@@ -48,6 +48,27 @@
         }
       },
       "createdAt": "2026-06-27T22:33:29+00:00",
+      "updatedAt": "2026-07-01"
+    },
+    {
+      "id": "com.d0ll1ii.game",
+      "name": "Neon-Strike",
+      "version": "1.0.1",
+      "author": "D0ll1ii",
+      "description": "Neon Strike — медитативная MR-аркада для пары минут или для часа в потоке.\nВокруг тебя — неоновые шары, медленно плывущие навстречу. Отбивай их светящимися палками в руках, лови комбо, избегай красных — и просто наслаждайся процессом. Никакой спешки и наказаний за промахи: игра создана, чтобы расслаблять, а не напрягать.\n🟡 Обычные шары — очки\n🔵 Бонусные — больше очков\n🔴 Запрещённые — не бей!\n🔥 Комбо за серию попаданий\n✨ Неоновые частицы и мягкая физика",
+      "display": "scene",
+      "type": "universal",
+      "minApiVersion": 1,
+      "icon": "apps/com.d0ll1ii.game/icon.png",
+      "preview": "apps/com.d0ll1ii.game/preview.png",
+      "platforms": {
+        "Universal": {
+          "url": "apps/com.d0ll1ii.game/app_universal.emr",
+          "size": 15608,
+          "sha256": "b05eb7ce066261cf309487b9a79996042c9b5a4777a8f99d11086ecfa5fa0852"
+        }
+      },
+      "createdAt": "2026-07-01T14:08:29+00:00",
       "updatedAt": "2026-07-01"
     }
   ]
