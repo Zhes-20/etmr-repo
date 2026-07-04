@@ -1,7 +1,7 @@
 {
   "name": "Official ETMR Store",
   "version": 2,
-  "updated": "2026-07-01T20:15:32.995447Z",
+  "updated": "2026-07-04T11:23:11.888730Z",
   "apps": [
     {
       "id": "com.zhes.counter",
@@ -28,27 +28,6 @@
       },
       "createdAt": "2026-06-28T17:08:32+00:00",
       "updatedAt": "2026-06-28"
-    },
-    {
-      "id": "com.zhes.dinorun",
-      "name": "DinoRun",
-      "version": "1.0.0",
-      "author": "Zhes",
-      "description": "Динозаврик, портированный прямо из хроум к вам на телефонную смешанную реальность!",
-      "display": "window",
-      "type": "universal",
-      "minApiVersion": 1,
-      "icon": "apps/com.zhes.dinorun/icon.png",
-      "preview": "apps/com.zhes.dinorun/preview.png",
-      "platforms": {
-        "Universal": {
-          "url": "apps/com.zhes.dinorun/app_universal.emr",
-          "size": 305078,
-          "sha256": "74d65626ff7549453d948f04613f2854a0c9b97d71025711ee66cdd09bdad43c"
-        }
-      },
-      "createdAt": "2026-06-27T22:33:29+00:00",
-      "updatedAt": "2026-07-01"
     },
     {
       "id": "com.d0ll1ii.game",
