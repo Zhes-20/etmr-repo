@@ -1,7 +1,7 @@
 {
   "name": "Official ETMR Store",
   "version": 2,
-  "updated": "2026-07-09T13:17:37.875452Z",
+  "updated": "2026-07-12T14:01:47.551644Z",
   "apps": [
     {
       "id": "com.zhes.counter",
@@ -112,27 +112,6 @@
       },
       "createdAt": "2026-06-27T22:33:29+00:00",
       "updatedAt": "2026-07-04"
-    },
-    {
-      "id": "com.velzevyl.handcolor",
-      "name": "Colorful Hands",
-      "version": "1.0.0",
-      "author": "Вельзевул",
-      "description": "Красьте свои руки в любые цвета, при этом продолжая сёрфить браузер или играть в другие мини-игры! Для работы требуется unsafe_execution, цвета сохраняются. Так же возможен баг, при котором цвета левой и правой руки могут меняться местами, но это уже проблема самой игры :)",
-      "display": "window",
-      "type": "universal",
-      "minApiVersion": 1,
-      "icon": "apps/com.velzevyl.handcolor/icon.png",
-      "preview": "apps/com.velzevyl.handcolor/preview.png",
-      "platforms": {
-        "Universal": {
-          "url": "apps/com.velzevyl.handcolor/app_universal.emr",
-          "size": 262572,
-          "sha256": "836a4f35ae8e44c30e234029b0dab78a224b96d98052f25fd4f07435defdadf7"
-        }
-      },
-      "createdAt": "2026-07-09T11:11:34+00:00",
-      "updatedAt": "2026-07-09"
     }
   ]
 }
