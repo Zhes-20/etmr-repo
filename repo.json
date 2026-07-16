@@ -1,7 +1,7 @@
 {
   "name": "Official ETMR Store",
   "version": 2,
-  "updated": "2026-07-16T18:28:48.037722Z",
+  "updated": "2026-07-16T19:32:48.653868Z",
   "apps": [
     {
       "id": "com.zhes.counter",
@@ -48,27 +48,6 @@
         }
       },
       "createdAt": "2026-07-01T14:08:29+00:00",
-      "updatedAt": "2026-07-01"
-    },
-    {
-      "id": "com.elizabhet.myapp",
-      "name": "StarCatcher",
-      "version": "0.1.0",
-      "author": "Elizabeth",
-      "description": "просто ловите звездочки которые падают",
-      "display": "window",
-      "type": "universal",
-      "minApiVersion": 1,
-      "icon": "apps/com.elizabhet.myapp/icon.png",
-      "preview": null,
-      "platforms": {
-        "Universal": {
-          "url": "apps/com.elizabhet.myapp/app_universal.emr",
-          "size": 111607,
-          "sha256": "63cd1e05c4596f8370009e4d0bf830dbb115355b8482bf306fab0177959a99ad"
-        }
-      },
-      "createdAt": "2026-07-01T19:02:56+00:00",
       "updatedAt": "2026-07-01"
     },
     {
