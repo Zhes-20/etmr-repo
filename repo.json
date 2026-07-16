@@ -1,7 +1,7 @@
 {
   "name": "Official ETMR Store",
   "version": 2,
-  "updated": "2026-07-16T13:44:08.066710Z",
+  "updated": "2026-07-16T18:28:48.037722Z",
   "apps": [
     {
       "id": "com.zhes.counter",
@@ -153,6 +153,27 @@
         }
       },
       "createdAt": "2026-07-16T12:49:02+00:00",
+      "updatedAt": "2026-07-16"
+    },
+    {
+      "id": "com.crazy.beatsaberpro",
+      "name": "Beat saber pro",
+      "version": "2.1.0",
+      "author": "Crazy",
+      "description": "эта игра была создана Никита катковский и DeepSeek,представляю вашему внимание beatsaber!",
+      "display": "scene",
+      "type": "universal",
+      "minApiVersion": 1,
+      "icon": "apps/com.crazy.beatsaberpro/icon.png",
+      "preview": "apps/com.crazy.beatsaberpro/preview.png",
+      "platforms": {
+        "Universal": {
+          "url": "apps/com.crazy.beatsaberpro/app_universal.emr",
+          "size": 9014241,
+          "sha256": "1782e6aec4cf8cc71eb524d570ae7b5088ea25c248f4b27a761dcc5b4932317d"
+        }
+      },
+      "createdAt": "2026-07-16T10:34:04+00:00",
       "updatedAt": "2026-07-16"
     }
   ]
