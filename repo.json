@@ -1,7 +1,7 @@
 {
   "name": "Official ETMR Store",
   "version": 2,
-  "updated": "2026-07-12T14:04:10.136295Z",
+  "updated": "2026-07-16T13:44:08.066710Z",
   "apps": [
     {
       "id": "com.zhes.counter",
@@ -133,6 +133,27 @@
       },
       "createdAt": "2026-07-09T11:11:34+00:00",
       "updatedAt": "2026-07-12"
+    },
+    {
+      "id": "com.blockfit.myapp",
+      "name": "Block-Fit",
+      "version": "0.1.1",
+      "author": "Elizabeth",
+      "description": "♦️Перемещайте кубы на свое место\n\n♦️14 уровней, сможешь пройти все?\n\n♦️Совет: Держите руку не прямо а боком к лицу и перемещайте медленно",
+      "display": "scene",
+      "type": "universal",
+      "minApiVersion": 1,
+      "icon": "apps/com.blockfit.myapp/icon.png",
+      "preview": null,
+      "platforms": {
+        "Universal": {
+          "url": "apps/com.blockfit.myapp/app_universal.emr",
+          "size": 114296,
+          "sha256": "cdba77ca9f2bf1a0fac9201ee255102d1f6b64358fe7accd263fe25a0b31551c"
+        }
+      },
+      "createdAt": "2026-07-16T12:49:02+00:00",
+      "updatedAt": "2026-07-16"
     }
   ]
 }
