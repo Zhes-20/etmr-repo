@@ -1,7 +1,7 @@
 {
   "name": "Official ETMR Store",
   "version": 2,
-  "updated": "2026-07-17T14:51:00.000370Z",
+  "updated": "2026-07-17T16:00:26.506243Z",
   "apps": [
     {
       "id": "com.zhes.counter",
@@ -132,27 +132,6 @@
         }
       },
       "createdAt": "2026-07-16T10:34:04+00:00",
-      "updatedAt": "2026-07-17"
-    },
-    {
-      "id": "com.blockfit3d.myapp",
-      "name": "Block-Fit 3D",
-      "version": "0.1.5",
-      "author": "Elizabeth",
-      "description": "♦️3Д версия Block-Fit'а!\n\n♦️Управление: ☝️ ➡️ ✊, но большой палец не должен быть изгибнутый",
-      "display": "scene",
-      "type": "universal",
-      "minApiVersion": 1,
-      "icon": "apps/com.blockfit3d.myapp/icon.png",
-      "preview": null,
-      "platforms": {
-        "Universal": {
-          "url": "apps/com.blockfit3d.myapp/app_universal.emr",
-          "size": 43961,
-          "sha256": "131d103a92bce8747b41525d813276f9fb6d6610123fb67989820a3f7080edd6"
-        }
-      },
-      "createdAt": "2026-07-16T19:16:18+00:00",
       "updatedAt": "2026-07-17"
     }
   ]
