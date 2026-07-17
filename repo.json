@@ -1,7 +1,7 @@
 {
   "name": "Official ETMR Store",
   "version": 2,
-  "updated": "2026-07-17T05:04:53.623134Z",
+  "updated": "2026-07-17T10:11:17.686419Z",
   "apps": [
     {
       "id": "com.zhes.counter",
@@ -112,6 +112,27 @@
       },
       "createdAt": "2026-07-09T11:11:34+00:00",
       "updatedAt": "2026-07-12"
+    },
+    {
+      "id": "com.crazy.beatsaberpro",
+      "name": "Beat saber pro",
+      "version": "2.1.0",
+      "author": "Crazy",
+      "description": "Это игра была создана Никита катковский и DeepSeek. Представляю вашему вниманию обновление beat saber! Теперь здесь можно выбрать музыку, знать общее количество очков, выбрать сложность игры, рандомная музыка, кубики идеально в бит, а также бесконечный режим в котором музыка меняется сама!",
+      "display": "scene",
+      "type": "universal",
+      "minApiVersion": 1,
+      "icon": "apps/com.crazy.beatsaberpro/icon.png",
+      "preview": "apps/com.crazy.beatsaberpro/preview.png",
+      "platforms": {
+        "Universal": {
+          "url": "apps/com.crazy.beatsaberpro/app_universal.emr",
+          "size": 9105639,
+          "sha256": "e5342d034b8b25c3680cba370b68ec02e55a9e563e08e785690528366e63322b"
+        }
+      },
+      "createdAt": "2026-07-16T10:34:04+00:00",
+      "updatedAt": "2026-07-17"
     }
   ]
 }
