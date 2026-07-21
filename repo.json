@@ -1,7 +1,7 @@
 {
   "name": "Official ETMR Store",
   "version": 2,
-  "updated": "2026-07-21T08:47:08.285483Z",
+  "updated": "2026-07-21T08:56:11.251977Z",
   "apps": [
     {
       "id": "com.zhes.counter",
@@ -133,6 +133,27 @@
       },
       "createdAt": "2026-07-16T10:34:04+00:00",
       "updatedAt": "2026-07-17"
+    },
+    {
+      "id": "com.top3hack.handlab",
+      "name": "Hand simulator",
+      "version": "1.0.0",
+      "author": "Top3hack",
+      "description": "Бери, разстягивай обьекты.\nНажимай на кнопки!\nИ веселись!\n\nНадо зажать кулак кроме большого пальца чтобы схватить обьект!",
+      "display": "scene",
+      "type": "universal",
+      "minApiVersion": 1,
+      "icon": "apps/com.top3hack.handlab/icon.png",
+      "preview": "apps/com.top3hack.handlab/preview.png",
+      "platforms": {
+        "Universal": {
+          "url": "apps/com.top3hack.handlab/app_universal.emr",
+          "size": 13435,
+          "sha256": "c8e57925cbaf2dd3a12d6547202eed8165466cfc942ad2916932bf36c6c9b266"
+        }
+      },
+      "createdAt": "2026-07-20T15:50:33+00:00",
+      "updatedAt": "2026-07-21"
     }
   ]
 }
