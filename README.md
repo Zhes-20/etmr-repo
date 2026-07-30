@@ -208,6 +208,8 @@ end
 | `"network"` | HTTP-запросы (GET/POST) |
 | `"unsafe_execution"` | Полный доступ к C# API, без сандбокса |
 
+> `EMRAPI.Hands`, `EMRAPI.Camera`, `EMRAPI.Json`, `EMRAPI.Tween`, `EMRAPI.Timer` — прав не требуют, доступны всегда.
+
 ---
 
 ## 🔄 Жизненный цикл
@@ -276,6 +278,8 @@ EMRAPI.App:RequestExit()           -- закрыть приложение
 EMRAPI.System:GetTime()            -- секунды с запуска
 EMRAPI.System:GetDeltaTime()       -- время между кадрами
 EMRAPI.System:GetPlatform()        -- "ios" | "android" | "editor"
+EMRAPI.System:GetTrackingMode()    -- "6dof" (позиция головы отслеживается)
+                                   -- или "3dof" (только поворот)
 ```
 
 ### 🔢 EMRAPI.Math
@@ -428,34 +432,51 @@ IndexKnuckle · MiddleKnuckle · RingKnuckle · PinkyKnuckle · Wrist
 
 </details>
 
+<details>
+<summary><b>Привязка к голове (HUD) 👁</b></summary>
+
+```lua
+-- Объект остаётся где стоит и дальше следует за головой
+EMRAPI.Scene:AttachToHead(obj)
+
+-- Явное смещение от камеры: x вправо, y вверх, z вперёд (метры)
+EMRAPI.Scene:AttachToHeadAt(obj, 0.15, -0.1, 0.6)
+
+EMRAPI.Scene:DetachFromHead(obj)   -- отвязать
+```
+
+</details>
+
 ---
 
 ### 🎯 EMRAPI.Input *(право: `input`)*
 
 ```lua
--- Положение и поворот головы
-local headPos = EMRAPI.Input:GetHeadPosition()   -- .x .y .z
-local headRot = EMRAPI.Input:GetHeadRotation()
+-- Отслеживается ли рука ("left" / "right")
+local tracked = EMRAPI.Input:IsHandTracked("right")
 
--- Положение рук
-local leftPos  = EMRAPI.Input:GetLeftHandPosition()
-local rightPos = EMRAPI.Input:GetRightHandPosition()
+-- Позиция руки — ТРИ возвращаемых значения (не Vector3!)
+-- Точка: имя ("PalmCenter", "IndexTip", ...) или индекс лендмарка "0"–"20"
+local x, y, z = EMRAPI.Input:GetHandPosition("right", "PalmCenter")
 
--- Жесты (true = левая, false = правая)
-if EMRAPI.Input:IsTriggerPressed(false) then    -- щипок правой
-    -- стреляем!
-end
+-- Поворот руки — четыре значения (кватернион)
+local qx, qy, qz, qw = EMRAPI.Input:GetHandRotation("right", "PalmCenter")
 
-if EMRAPI.Input:IsGripPressed(true) then        -- захват левой
-    -- хватаем!
-end
+-- Упрощённые геттеры (PalmCenter)
+local px = EMRAPI.Input:GetHandPositionX("left")  -- также Y/Z
 
--- Стик / тачпад
-local stick = EMRAPI.Input:GetThumbstick(false)  -- .x .y
+-- Жесты (строка: "Pinch", "Fist", "Five", "OK", "Point", "Like"...)
+local gesture = EMRAPI.Input:GetHandGesture("right")
+local pinch   = EMRAPI.Input:GetPinchStrength("right")  -- float
+local grab    = EMRAPI.Input:IsGrabbing("left")          -- bool
 
--- Вибрация
-EMRAPI.Input:SetHapticFeedback(false, 0.5, 0.1)  -- рука, сила, длительность
+-- Голова (основная камера)
+local hx = EMRAPI.Input:GetHeadPositionX()  -- также Y/Z
+local rw = EMRAPI.Input:GetHeadRotationW()  -- также X/Y/Z
 ```
+
+> [!NOTE]
+> Событий жестов нет — опрашивай `GetHandGesture` в `OnUpdate` или таймере. Вибрации и контроллеров нет — только руки.
 
 ---
 
@@ -485,10 +506,21 @@ EMRAPI.Timer:Cancel(timerId)
 ### 🔊 EMRAPI.Audio *(право: `audio`)*
 
 ```lua
-EMRAPI.Audio:Play("sounds/click.wav")           -- воспроизвести
+-- Одноразовые звуки
+EMRAPI.Audio:Play("sounds/click.wav")
 EMRAPI.Audio:PlayAtPoint("sounds/boom.wav", 0, 1, 3)  -- 3D-звук
-EMRAPI.Audio:Stop()                              -- остановить всё
-EMRAPI.Audio:SetVolume(0.8)                      -- громкость (0.0–1.0)
+
+-- Фоновая музыка: Play/PlayAtPoint/PlayLoop возвращают id источника
+local music = EMRAPI.Audio:PlayLoop("sounds/bg.ogg")   -- зацикленный
+EMRAPI.Audio:SetVolume(music, 0.4)   -- громкость источника
+EMRAPI.Audio:SetPitch(music, 1.2)    -- тон/скорость (0.1–3.0)
+EMRAPI.Audio:SetLoop(music, false)   -- доиграет и остановится
+EMRAPI.Audio:IsPlaying(music)        -- bool
+EMRAPI.Audio:Stop(music)             -- остановить источник
+
+-- Глобально
+EMRAPI.Audio:Stop()                  -- остановить всё
+EMRAPI.Audio:SetVolume(0.8)          -- базовая громкость (0.0–1.0)
 ```
 
 Пути — относительно корня архива приложения.
@@ -541,6 +573,79 @@ EMRAPI.Network:Post("https://api.example.com/submit",
     end
 )
 ```
+
+---
+
+### 🤚 EMRAPI.Hands *(права не нужны)*
+
+Управление видом скелета рук. Всё откатывается при закрытии приложения.
+`hand` — `"left"`, `"right"` или `"both"`; цвета — `0.0–1.0`.
+
+```lua
+EMRAPI.Hands:SetColor("both", 1, 0, 0)       -- весь скелет красный
+EMRAPI.Hands:SetPointColor("left", 1, 1, 0)  -- только точки
+EMRAPI.Hands:SetLinkColor("left", 0, 1, 1)   -- только связи
+EMRAPI.Hands:SetAlpha("both", 0.3)           -- полупрозрачность
+EMRAPI.Hands:SetVisible("right", false)      -- скрыть руку
+EMRAPI.Hands:IsVisible("left")               -- bool
+EMRAPI.Hands:Reset("both")                   -- вид по умолчанию
+```
+
+> Скрывается только визуализация — трекинг и `EMRAPI.Input` работают дальше.
+
+---
+
+### 📷 EMRAPI.Camera *(права не нужны)*
+
+Фон с камеры телефона (passthrough). Откатывается при закрытии.
+
+```lua
+EMRAPI.Camera:SetBackground("hide")    -- "show" | "hide" | "blur"
+EMRAPI.Camera:GetBackground()          -- текущий режим
+EMRAPI.Camera:Reset()                  -- вернуть как было
+```
+
+`"hide"` — полное погружение (VR), `"blur"` — фокус на контенте.
+
+---
+
+### 📄 EMRAPI.Json *(права не нужны)*
+
+В Lua нет встроенного JSON — используй этот модуль (особенно с `EMRAPI.Network`).
+
+```lua
+local s = EMRAPI.Json:Encode({ score = 100, tags = {"a", "b"} })
+-- '{"score":100,"tags":["a","b"]}'
+
+local t = EMRAPI.Json:Decode('{"items":[1,2,3]}')
+if t then EMRAPI:Log(t.items[1]) end   -- ВСЕГДА проверяй на nil!
+```
+
+- Таблица с ключами `1..n` → массив, иначе → объект
+- Ошибка → `nil` + причина в логе
+
+---
+
+### 🎬 EMRAPI.Tween *(права не нужны)*
+
+Плавные анимации без ручной лерпы в `OnUpdate`. Локальные координаты, сглаживание smoothstep.
+
+```lua
+local id = EMRAPI.Tween:MoveTo(obj, 0, 1, 2, 0.5)   -- к точке за 0.5с
+EMRAPI.Tween:RotateTo(obj, 0, 180, 0, 1.0)           -- углы Эйлера
+EMRAPI.Tween:ScaleTo(obj, 2, 2, 2, 0.3)
+
+-- Колбэк по завершении — последним аргументом
+EMRAPI.Tween:MoveTo(obj, 0, 0, 1, 0.5, function()
+    EMRAPI:Log("приехали")
+end)
+
+EMRAPI.Tween:Cancel(id)      -- объект замирает где был
+EMRAPI.Tween:CancelAll()
+EMRAPI.Tween:IsRunning(id)   -- bool
+```
+
+> Новый твин того же типа на объекте заменяет старый. Перед `AttachToHead`/`AttachToHand` отменяй твины объекта — подерутся с новым родителем.
 
 ---
 
@@ -788,6 +893,8 @@ end
 | Приложение не в магазине | Не отправил боту | Запакуй в `.zip` → `/upload` |
 | `App requires API vN` | Слишком высокий `minApiVersion` | Поставь `1` |
 | Краш на iOS | Не сгенерированы обёртки | `XLua → Generate Code` в Unity |
+| `attempt to index a nil value` после Decode | Битый JSON | Проверяй результат `EMRAPI.Json:Decode` на `nil` |
+| Объект дёргается после AttachToHead | Живой твин в старых координатах | `EMRAPI.Tween:CancelAll()` перед привязкой |
 
 ---
 
