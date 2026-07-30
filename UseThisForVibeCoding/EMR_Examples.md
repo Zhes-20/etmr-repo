@@ -456,6 +456,82 @@ end
 
 ---
 
+## Иммерсивная сцена — Tween, Hands, Camera, Json, GetTrackingMode (Чистый Lua, Scene Mode)
+
+Показывает новые модули: погружение (скрытие фона камеры), полупрозрачные руки, анимация твинами, HUD на голове, загрузка данных с JSON-парсингом.
+
+**`app.json`**
+```json
+{
+  "id": "com.example.immersive",
+  "name": "Immersive Demo",
+  "version": "1.0.0",
+  "author": "Developer",
+  "entry": "scripts/main.lua",
+  "display": "scene",
+  "minApiVersion": 1,
+  "type": "lua",
+  "permissions": ["ui", "scene", "network"]
+}
+```
+
+**`scripts/main.lua`**
+```lua
+local orb = nil
+
+function OnStart()
+    -- Режим трекинга решает, куда ставить контент
+    local mode = EMRAPI.System:GetTrackingMode()
+    local dist = (mode == "6dof") and 1.5 or 0.9  -- в 3dof держим ближе
+
+    -- Погружение: блюрим фон камеры, руки делаем полупрозрачными
+    EMRAPI.Camera:SetBackground("blur")
+    EMRAPI.Hands:SetAlpha("both", 0.4)
+    EMRAPI.Hands:SetLinkColor("both", 0.2, 0.8, 1.0)
+    -- Откатывать в OnDestroy не обязательно — платформа сбросит сама,
+    -- но явный Reset — хороший тон.
+
+    -- Светящийся шар, анимируем твинами (не лерпой в OnUpdate!)
+    orb = EMRAPI.Scene:CreatePrimitive("sphere")
+    EMRAPI.Scene:SetScale(orb, 0.01, 0.01, 0.01)
+    EMRAPI.Scene:SetPosition(orb, 0, -0.5, dist)
+    EMRAPI.Scene:SetColor(orb, 1, 0.6, 0.1, 1)
+
+    EMRAPI.Tween:ScaleTo(orb, 0.2, 0.2, 0.2, 0.8)          -- вырастает
+    EMRAPI.Tween:MoveTo(orb, 0, 0.1, dist, 1.2, function()  -- всплывает
+        EMRAPI:Log("шар на месте")
+    end)
+
+    -- Мини-HUD, приклеенный к голове
+    local hud = EMRAPI.Scene:CreatePrimitive("quad")
+    EMRAPI.Scene:SetScale(hud, 0.08, 0.03, 1)
+    EMRAPI.Scene:AttachToHeadAt(hud, 0.12, -0.08, 0.5)
+
+    -- Данные с сервера: Network отдаёт строку, Json превращает в таблицу
+    EMRAPI.Network:Get("https://api.example.com/state", function(resp, err)
+        if err then return end
+        local data = EMRAPI.Json:Decode(resp)
+        if data and data.color then                -- ВСЕГДА проверка на nil
+            EMRAPI.Scene:SetColor(orb, data.color.r, data.color.g, data.color.b, 1)
+        end
+    end)
+end
+
+function OnDestroy()
+    EMRAPI.Tween:CancelAll()      -- твины отменяем сами
+    EMRAPI.Hands:Reset("both")    -- остальное платформа откатит и без нас
+    EMRAPI.Camera:Reset()
+end
+```
+
+**Ключевые паттерны:**
+- `GetTrackingMode()` в начале `OnStart` — дистанция/раскладка контента зависит от `"3dof"`/`"6dof"`.
+- Твины вместо ручной анимации в `OnUpdate` — меньше кода, плавнее результат.
+- `Json:Decode` всегда проверяется на `nil` перед использованием.
+- `Hands`/`Camera` не требуют прав и автоматически откатываются при выходе.
+
+---
+
 ## Частые ошибки
 
 | Ошибка | Причина | Решение |
@@ -469,3 +545,5 @@ end
 | Краш на iOS / IL2CPP | XLua → Generate Code не запускали | Обязательно запусти перед билдом |
 | `OnStart` не вызывается в LuaBehaviour | Используется неправильный регистр | LuaBehaviour: `start()`. Чистый Lua: `OnStart()`. |
 | App requires API vN | `minApiVersion` выше текущей платформы | Понизь `minApiVersion` в `app.json` или обнови платформу |
+| `attempt to index a nil value` после `Json:Decode` | Битый/неожиданный JSON | Всегда проверяй результат `Decode` на `nil` перед доступом к полям |
+| Объект дёргается/улетает после `AttachToHead`/`AttachToHand` | Активный твин продолжает писать старые локальные координаты | `EMRAPI.Tween:CancelAll()` (или `Cancel(id)`) перед привязкой |
