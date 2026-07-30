@@ -36,10 +36,13 @@ EMRAPI.App:RequestExit()    -- корректное закрытие прило�
 ## EMRAPI.System — системные данные
 
 ```lua
-EMRAPI.System:GetTime()        -- float, секунды с запуска приложения
-EMRAPI.System:GetDeltaTime()   -- float, время между кадрами
-EMRAPI.System:GetPlatform()    -- "ios" | "android" | "editor"
+EMRAPI.System:GetTime()          -- float, секунды с запуска приложения
+EMRAPI.System:GetDeltaTime()     -- float, время между кадрами
+EMRAPI.System:GetPlatform()      -- "ios" | "android" | "editor"
+EMRAPI.System:GetTrackingMode()  -- "3dof" | "6dof"
 ```
+
+> **GetTrackingMode:** `"6dof"` — позиция головы отслеживается (ARKit/ARCore), объекты можно расставлять по комнате. `"3dof"` — только поворот головы, контент держи перед пользователем.
 
 ---
 
@@ -208,6 +211,19 @@ EMRAPI.Scene:DetachFromHand(obj)  -- отвязать
 
 Или числовой индекс лендмарка: `"0"` – `"20"` (MediaPipe Hand Landmarks).
 
+### Привязка объектов к голове (HUD)
+
+```lua
+-- Объект остаётся там, где стоит сейчас, и дальше едет вместе с головой
+EMRAPI.Scene:AttachToHead(obj)
+
+-- Явное смещение в локальных координатах камеры:
+-- x — вправо, y — вверх, z — вперёд (в метрах)
+EMRAPI.Scene:AttachToHeadAt(obj, 0.15, -0.1, 0.6)
+
+EMRAPI.Scene:DetachFromHead(obj)  -- отвязать (остаётся где был)
+```
+
 ---
 
 ## EMRAPI.Input — VR/MR-трекинг
@@ -255,12 +271,24 @@ local headRotW = EMRAPI.Input:GetHeadRotationW()
 **Право:** `audio`
 
 Пути — относительно корня архива приложения (.emr).
+`Play`/`PlayAtPoint`/`PlayLoop` возвращают **id источника** — для одноразовых звуков его можно игнорировать.
 
 ```lua
+-- Одноразовые звуки (id можно не сохранять)
 EMRAPI.Audio:Play("sounds/click.wav")
 EMRAPI.Audio:PlayAtPoint("sounds/boom.wav", 0, 1, 3)  -- позиционный 3D-звук
-EMRAPI.Audio:Stop()                    -- остановить всё аудио приложения
-EMRAPI.Audio:SetVolume(0.8)            -- 0.0–1.0
+
+-- Фоновая музыка: зацикленный источник + управление по id
+local music = EMRAPI.Audio:PlayLoop("sounds/bg.ogg")
+EMRAPI.Audio:SetVolume(music, 0.4)   -- громкость этого источника
+EMRAPI.Audio:SetPitch(music, 1.2)    -- скорость/тон (0.1–3.0)
+EMRAPI.Audio:SetLoop(music, false)   -- доиграет и остановится
+EMRAPI.Audio:IsPlaying(music)        -- bool
+EMRAPI.Audio:Stop(music)             -- остановить этот источник
+
+-- Глобальное управление
+EMRAPI.Audio:Stop()                  -- остановить всё аудио приложения
+EMRAPI.Audio:SetVolume(0.8)          -- базовая громкость всех источников (0.0–1.0)
 ```
 
 ---
@@ -316,6 +344,101 @@ EMRAPI.Bundle:IsLoaded()               -- bool
 local go = EMRAPI.Bundle:LoadAsset("PrefabName")   -- загрузить как ассет
 local go = EMRAPI.Bundle:Instantiate("PrefabName")  -- загрузить + создать экземпляр
 ```
+
+---
+
+## EMRAPI.Hands — вид скелета рук
+**Право:** не требуется. Все изменения автоматически откатываются при закрытии приложения.
+
+`hand` — `"left"`, `"right"` или `"both"`. Цвета — float `0.0–1.0`.
+
+```lua
+EMRAPI.Hands:SetColor("both", 1, 0, 0)       -- весь скелет красный
+EMRAPI.Hands:SetPointColor("left", 1, 1, 0)  -- только точки (суставы)
+EMRAPI.Hands:SetLinkColor("left", 0, 1, 1)   -- только связи (кости)
+EMRAPI.Hands:SetAlpha("both", 0.3)           -- полупрозрачный скелет
+EMRAPI.Hands:SetVisible("right", false)      -- скрыть правую руку
+local vis = EMRAPI.Hands:IsVisible("left")   -- bool
+EMRAPI.Hands:Reset("both")                   -- вернуть вид по умолчанию
+```
+
+> Скрытие руки прячет только визуализацию — трекинг и `EMRAPI.Input` продолжают работать.
+
+---
+
+## EMRAPI.Camera — фон с камеры (passthrough)
+**Право:** не требуется. Откатывается при закрытии приложения.
+
+```lua
+EMRAPI.Camera:SetBackground("hide")   -- "show" | "hide" | "blur"
+local mode = EMRAPI.Camera:GetBackground()  -- текущий режим строкой
+EMRAPI.Camera:Reset()                 -- вернуть, как было до приложения
+```
+
+Полезно для иммерсивных scene-приложений: `"hide"` — полное VR-погружение, `"blur"` — фокус на контенте без потери ориентации.
+
+---
+
+## EMRAPI.Json — JSON
+**Право:** не требуется.
+
+В Lua нет встроенного `json`/`cjson` — используй этот модуль, особенно с `EMRAPI.Network`.
+
+```lua
+-- Таблица -> строка
+local s = EMRAPI.Json:Encode({ name = "Player", score = 100, tags = {"a", "b"} })
+-- '{"name":"Player","score":100,"tags":["a","b"]}'
+
+-- Строка -> таблица
+local t = EMRAPI.Json:Decode('{"items":[1,2,3],"ok":true}')
+if t then
+    EMRAPI:Log("первый: " .. t.items[1])
+end
+```
+
+Правила:
+- Таблица с целыми ключами `1..n` без пропусков → JSON-массив, иначе → объект.
+- Ошибка (битый JSON, цикл в таблице) → возвращается `nil`, причина в логе. **Всегда проверяй результат на `nil`.**
+- Целые числа декодируются как Lua integer, дробные — как float.
+
+Типичная связка с сетью:
+
+```lua
+EMRAPI.Network:Get("https://api.example.com/user", function(resp, err)
+    if err then return end
+    local data = EMRAPI.Json:Decode(resp)
+    if data then EMRAPI.UI:SetText(label, data.name) end
+end)
+```
+
+---
+
+## EMRAPI.Tween — плавные анимации
+**Право:** не требуется.
+
+Анимация трансформа без ручной лерпы в `OnUpdate`. Локальные координаты (та же система, что у `Scene:SetPosition`), сглаживание smoothstep.
+
+```lua
+-- Базовые твины (возвращают id)
+local id = EMRAPI.Tween:MoveTo(obj, 0, 1, 2, 0.5)     -- к точке за 0.5 сек
+EMRAPI.Tween:RotateTo(obj, 0, 180, 0, 1.0)             -- углы Эйлера
+EMRAPI.Tween:ScaleTo(obj, 2, 2, 2, 0.3)
+
+-- С колбэком по завершении (последним аргументом)
+EMRAPI.Tween:MoveTo(obj, 0, 0, 1, 0.5, function()
+    EMRAPI:Log("приехали")
+end)
+
+-- Управление
+EMRAPI.Tween:Cancel(id)        -- остановить (объект замирает где был)
+EMRAPI.Tween:CancelAll()
+local run = EMRAPI.Tween:IsRunning(id)  -- bool
+```
+
+Правила:
+- Новый твин **того же типа** на том же объекте заменяет старый (MoveTo поверх MoveTo). Разные типы (MoveTo + ScaleTo) работают параллельно.
+- `duration <= 0` — применяется мгновенно, id не выдаётся (`-1`).
+- Перед перепарентом объекта (например, `AttachToHead`) отмени его твины — они работают в локальных координатах и «подерутся» с новым родителем.
 
 ---
 
