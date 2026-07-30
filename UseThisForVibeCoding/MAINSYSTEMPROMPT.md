@@ -74,6 +74,7 @@ EMRAPI:Log(msg), EMRAPI:LogWarning(msg), EMRAPI:LogError(msg)
 EMRAPI.App:RequestExit(), EMRAPI.App:GetName(), .id, .displayMode
 EMRAPI.System:
 GetTime(), GetDeltaTime(), GetPlatform()
+GetTrackingMode() → "3dof" | "6dof" ("6dof" = head position is tracked, objects can be placed in the world; "3dof" = rotation only, keep content in front of the user)
 EMRAPI.Math:
 Distance(x1,y1,z1,x2,y2,z2), Lerp(a,b,t), Random(min,max), Clamp(val,min,max)
 EMRAPI.Timer:
@@ -84,7 +85,7 @@ EMRAPI.UI (permission: "ui"):
 Creation: CreatePanel(w,h), CreateButton(parent, text, callback), CreateText(parent, text), CreateImage(parent, path), CreateInputField(parent, placeholder, callback), CreateSlider(parent, min, max, callback), CreateToggle(parent, text, callback), CreateScrollView(parent, w, h) Manipulation: SetColor(el,r,g,b,a), SetPosition(el,x,y,z), SetSize(el,w,h), SetText(el,text), GetText(el), SetActive(el,bool), Destroy(el)
 
 EMRAPI.Scene (permission: "scene"):
-Creation: CreatePrimitive("cube"|"sphere"|"capsule"|"cylinder"|"plane"|"quad"), CreateObject(name), GetRoot(), Find(name), Destroy(obj) Transform: SetPosition(obj,x,y,z), SetRotation(obj,x,y,z), SetScale(obj,x,y,z), SetColor(obj,r,g,b,a), SetParent(child,parent), GetPositionX/Y/Z(obj) Physics: AddRigidbody(obj,mass,useGravity), AddBoxCollider(obj), AddSphereCollider(obj,radius) Hands: AttachToHand(obj,hand,point), AttachToHandSmooth(obj,hand,point,posLerp,rotLerp), DetachFromHand(obj) Prefabs: Spawn(prefab), SpawnAt(prefab,x,y,z)
+Creation: CreatePrimitive("cube"|"sphere"|"capsule"|"cylinder"|"plane"|"quad"), CreateObject(name), GetRoot(), Find(name), Destroy(obj) Transform: SetPosition(obj,x,y,z), SetRotation(obj,x,y,z), SetScale(obj,x,y,z), SetColor(obj,r,g,b,a), SetParent(child,parent), GetPositionX/Y/Z(obj) Physics: AddRigidbody(obj,mass,useGravity), AddBoxCollider(obj), AddSphereCollider(obj,radius) Hands: AttachToHand(obj,hand,point), AttachToHandSmooth(obj,hand,point,posLerp,rotLerp), DetachFromHand(obj) Head (HUD anchoring): AttachToHead(obj) — keeps current world pose and follows the head; AttachToHeadAt(obj,x,y,z) — explicit local offset from camera (x right, y up, z forward, e.g. 0, -0.1, 0.6); DetachFromHead(obj) Prefabs: Spawn(prefab), SpawnAt(prefab,x,y,z)
 
 Hand points: PalmCenter, IndexTip, ThumbTip, MiddleTip, RingTip, PinkyTip, IndexKnuckle, MiddleKnuckle, RingKnuckle, PinkyKnuckle, Wrist, or "0"-"20" (landmark index)
 
@@ -101,8 +102,30 @@ GetGestureState(checkerName) → int
 GetHeadPositionX/Y/Z() → float
 GetHeadRotationX/Y/Z/W() → float
 NOTE: There are no Vector3 returning functions or haptic feedback. Use multiple assignments for position: local x, y, z = EMRAPI.Input:GetHandPosition("left", "PalmCenter")
+NOTE: There are no gesture EVENTS/callbacks — poll GetHandGesture in OnUpdate or a Timer.
 EMRAPI.Audio (permission: "audio"):
-Play(path), PlayAtPoint(path,x,y,z), Stop(), SetVolume(0-1) Paths relative to archive root.
+Play(path) → id, PlayAtPoint(path,x,y,z) → id (3D positional), PlayLoop(path) → id (looped, background music)
+Per-source control by id: Stop(id), SetVolume(id, 0-1), SetPitch(id, 0.1-3), SetLoop(id, bool), IsPlaying(id) → bool
+Global: Stop() stops everything, SetVolume(0-1) sets base volume for all sources.
+Paths relative to archive root. Ignoring the returned id is fine for one-shot sounds.
+EMRAPI.Hands (no permission needed):
+Control of the hand skeleton visuals. hand = "left" | "right" | "both".
+SetColor(hand,r,g,b), SetPointColor(hand,r,g,b), SetLinkColor(hand,r,g,b) — colors are 0-1 floats
+SetAlpha(hand, 0-1) — transparency, SetVisible(hand,bool), IsVisible(hand) → bool, Reset(hand)
+All changes auto-revert when the app closes.
+EMRAPI.Camera (no permission needed):
+SetBackground("show" | "hide" | "blur") — controls the camera passthrough image
+GetBackground() → current mode string, Reset() — restore what was before the app
+Auto-reverts when the app closes.
+EMRAPI.Json (no permission needed):
+Encode(table) → string (nil on error), Decode(string) → table (nil on error, logs the reason)
+A Lua table with consecutive integer keys 1..n encodes as a JSON array, otherwise as an object.
+Use this for EMRAPI.Network responses/bodies — there is NO built-in json/cjson module in Lua.
+EMRAPI.Tween (no permission needed):
+MoveTo(obj,x,y,z,duration) → id, RotateTo(obj,x,y,z,duration) → id (euler angles), ScaleTo(obj,x,y,z,duration) → id
+Each also has an overload with a completion callback as the last argument: MoveTo(obj,x,y,z,duration,function() ... end)
+Cancel(id), CancelAll(), IsRunning(id) → bool
+Local coordinates (same space as Scene:SetPosition), smoothstep easing. A new tween of the same kind on the same object replaces the old one. duration <= 0 applies instantly. PREFER tweens over manual lerp in OnUpdate.
 EMRAPI.Storage (permission: "storage"):
 Set(key,value), GetString(key,default)
 SetNumber(key,num), GetNumber(key,default)
@@ -155,6 +178,9 @@ Bot decrypts, validates, asks for icon (256×256 PNG) and preview (16:9 PNG)
 For type:"bundle" — bot asks platform (iOS / Android / Both) For type:"lua" — automatic for both platforms
 Bot builds encrypted .emr, uploads to repository
 App appears in the in-app store for all users to download
+STATE RESET GUARANTEE
+Everything an app changes in the shell (hand skeleton appearance via EMRAPI.Hands, camera background via EMRAPI.Camera) is automatically restored when the app closes. Still cancel your own timers and tweens in OnDestroy/onDestroy.
+
 COMMON MISTAKES TO WATCH FOR
 Wrong lifecycle names (mixing CamelCase and lowerCamelCase between modes)
 Using . instead of : for EMRAPI calls
