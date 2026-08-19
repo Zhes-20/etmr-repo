@@ -1,1 +1,33 @@
-
+{
+  "name": "⚠️ ВЕРСИЯ УСТАРЕЛА — ОБНОВИТЕ! | OUTDATED — PLEASE UPDATE! | VERSÃO DESATUALIZADA — ATUALIZE! | t.me/enjoythevr",
+  "version": 2,
+  "updated": "2026-08-19T15:50:00.000000Z",
+  "apps": [
+    {
+      "id": "com.etmr.update.notice",
+      "name": "⚠️ Версия устарела — обновите! | Outdated — please update! | Desatualizada — atualize!",
+      "version": "1.0.0",
+      "author": "EnJoyTheMR Team",
+      "description": "🇷🇺 РУССКИЙ\nВаша версия EnJoyTheMR устарела. Пожалуйста, обновите приложение — только новая версия может устанавливать приложения из магазина.\nЗа новостями можно следить тут: t.me/enjoythevr\n\n🇬🇧 ENGLISH\nYour EnJoyTheMR version is outdated. Please update the app — only the new version can install apps from the store.\nFollow the news here: t.me/enjoythevr\n\n🇧🇷 PORTUGUÊS (BRASIL)\nSua versão do EnJoyTheMR está desatualizada. Por favor, atualize o aplicativo — somente a nova versão pode instalar apps da loja.\nAcompanhe as notícias aqui: t.me/enjoythevr",
+      "display": "window",
+      "type": "lua",
+      "minApiVersion": 1,
+      "icon": "",
+      "preview": "",
+      "platforms": {
+        "iOS": {
+          "url": "apps/update_notice.emr",
+          "size": 1,
+          "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+        },
+        "Android": {
+          "url": "apps/update_notice.emr",
+          "size": 1,
+          "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+        }
+      },
+      "createdAt": "2026-08-19",
+      "updatedAt": "2026-08-19"
+    }
+  ]
+}
