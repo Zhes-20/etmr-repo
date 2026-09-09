@@ -1,7 +1,7 @@
 {
   "name": "Official ETMR Store",
   "version": 2,
-  "updated": "2026-08-24T14:05:09.069335Z",
+  "updated": "2026-09-09T11:48:26.711706Z",
   "apps": [
     {
       "id": "com.zhes.counter",
@@ -206,6 +206,27 @@
       },
       "createdAt": "2026-06-27T22:33:29+00:00",
       "updatedAt": "2026-08-24"
+    },
+    {
+      "id": "com.crazy.coastermania",
+      "name": "Crazy Coaster",
+      "version": "1.0.0",
+      "author": "crazy",
+      "description": "Crazy Coaster — строй американские горки в смешанной реальности, водя пальцем в воздухе, и наблюдай, как машинка мчится по твоему треку через камеру смартфона. 🚀🎢",
+      "display": "scene",
+      "type": "universal",
+      "minApiVersion": 2,
+      "icon": "apps/com.crazy.coastermania/icon.png",
+      "preview": "apps/com.crazy.coastermania/preview.png",
+      "platforms": {
+        "Universal": {
+          "url": "apps/com.crazy.coastermania/app_universal.emr",
+          "size": 44884,
+          "sha256": "e57f50d66650030c6f61a26430c2546e7a4fbd5bec1d5717d2cdfee9fef5aa5a"
+        }
+      },
+      "createdAt": "2026-09-09T11:17:11+00:00",
+      "updatedAt": "2026-09-09"
     }
   ]
 }
