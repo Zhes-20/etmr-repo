@@ -1,7 +1,7 @@
 {
   "name": "Official ETMR Store",
   "version": 2,
-  "updated": "2026-09-09T11:48:26.711706Z",
+  "updated": "2026-09-13T09:28:41.127210Z",
   "apps": [
     {
       "id": "com.zhes.counter",
@@ -227,6 +227,27 @@
       },
       "createdAt": "2026-09-09T11:17:11+00:00",
       "updatedAt": "2026-09-09"
+    },
+    {
+      "id": "com.developer.oculushanf",
+      "name": "Invisible hands",
+      "version": "1",
+      "author": "Moution",
+      "description": "Oculus Hand",
+      "display": "window",
+      "type": "universal",
+      "minApiVersion": 2,
+      "icon": "apps/com.developer.oculushanf/icon.png",
+      "preview": null,
+      "platforms": {
+        "Universal": {
+          "url": "apps/com.developer.oculushanf/app_universal.emr",
+          "size": 16697,
+          "sha256": "d80961661719d258899ac7228c493bc67e8175678ac7e98f2e1148c40351448c"
+        }
+      },
+      "createdAt": "2026-09-13T06:19:17+00:00",
+      "updatedAt": "2026-09-13"
     }
   ]
 }
