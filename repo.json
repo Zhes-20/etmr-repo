@@ -1,7 +1,7 @@
 {
   "name": "Official ETMR Store",
   "version": 2,
-  "updated": "2026-09-13T19:46:07.842984Z",
+  "updated": "2026-09-14T17:23:56.994548Z",
   "apps": [
     {
       "id": "com.zhes.counter",
@@ -263,17 +263,17 @@
       "platforms": {
         "iOS": {
           "url": "apps/com.zhes.handson/app_ios.emr",
-          "size": 18389059,
-          "sha256": "8dfba82160acaea543e0a1f985cb90e6c7f57a7a56dbbc867500cf0114cc8727"
+          "size": 18391554,
+          "sha256": "83168bba655961b8d8dc1250fdbbca257334feb2f6a3c4fb390ac72195b20aec"
         },
         "Android": {
           "url": "apps/com.zhes.handson/app_android.emr",
-          "size": 18594752,
-          "sha256": "a11846ed2088910b125b07e030867c0e82813fc94dd5296ef02062c2fe78c3f9"
+          "size": 18594646,
+          "sha256": "90dd09df8d12c5365894c1bcd2adc95e2db7ec476b5082a0433d8cbae452ab4b"
         }
       },
       "createdAt": "2026-09-13T18:56:37+00:00",
-      "updatedAt": "2026-09-13"
+      "updatedAt": "2026-09-14"
     }
   ]
 }
