@@ -1,7 +1,7 @@
 {
   "name": "Official ETMR Store",
   "version": 2,
-  "updated": "2026-10-15T12:35:33.755789Z",
+  "updated": "2026-10-19T16:23:41.810904Z",
   "apps": [
     {
       "id": "com.zhes.counter",
@@ -295,6 +295,27 @@
       },
       "createdAt": "2026-10-15T00:20:22+00:00",
       "updatedAt": "2026-10-15"
+    },
+    {
+      "id": "com.akundisco.bonelabremake",
+      "name": "BoneLab Remake",
+      "version": "1.0.0",
+      "author": "AkunDiscoRemake",
+      "description": "Fan remake inspirado em BONELAB: maos fake articuladas que encaixam nas armas, Joy-Con ou gestos, pistola/SMG/escopeta/taco com pente fisico, bots com IA (Grunt, Atirador, Crab que pula no rosto), ragdoll, barris explosivos, modo ONDAS e SANDBOX.",
+      "display": "scene",
+      "type": "universal",
+      "minApiVersion": 2,
+      "icon": "apps/com.akundisco.bonelabremake/icon.png",
+      "preview": "apps/com.akundisco.bonelabremake/preview.png",
+      "platforms": {
+        "Universal": {
+          "url": "apps/com.akundisco.bonelabremake/app_universal.emr",
+          "size": 7117065,
+          "sha256": "792ddf52fc084f0ef2f20eda4c43cc34597470620d727e6b6463e11cab9cde68"
+        }
+      },
+      "createdAt": "2026-10-19T15:50:38+00:00",
+      "updatedAt": "2026-10-19"
     }
   ]
 }
