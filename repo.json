@@ -1,7 +1,7 @@
 {
   "name": "Official ETMR Store",
   "version": 2,
-  "updated": "2026-10-19T16:23:41.810904Z",
+  "updated": "2026-10-25T09:19:27.261536Z",
   "apps": [
     {
       "id": "com.zhes.counter",
@@ -316,6 +316,27 @@
       },
       "createdAt": "2026-10-19T15:50:38+00:00",
       "updatedAt": "2026-10-19"
+    },
+    {
+      "id": "com.author.pizzaplacemr",
+      "name": "Pizza Place MR",
+      "version": "1.0.0",
+      "author": "Fidal",
+      "description": "Pizza Place MR:стань работником или клиентом, готовь что угодно из любых ингредиентов, принимай оплату на кассе. Одному или онлайн.",
+      "display": "scene",
+      "type": "universal",
+      "minApiVersion": 2,
+      "icon": "apps/com.author.pizzaplacemr/icon.png",
+      "preview": "apps/com.author.pizzaplacemr/preview.png",
+      "platforms": {
+        "Universal": {
+          "url": "apps/com.author.pizzaplacemr/app_universal.emr",
+          "size": 164901,
+          "sha256": "5b9a3e1a1b37f0b39f365b8deaacad080b2d82a60770a5bbc746dd975c1aef9c"
+        }
+      },
+      "createdAt": "2026-10-20T17:13:44+00:00",
+      "updatedAt": "2026-10-25"
     }
   ]
 }
