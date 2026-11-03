@@ -1,7 +1,7 @@
 {
   "name": "Official ETMR Store",
   "version": 2,
-  "updated": "2026-11-03T14:46:42.951122Z",
+  "updated": "2026-11-03T21:16:43.943298Z",
   "apps": [
     {
       "id": "com.zhes.counter",
@@ -336,6 +336,32 @@
         }
       },
       "createdAt": "2026-10-19T19:49:39+00:00",
+      "updatedAt": "2026-11-03"
+    },
+    {
+      "id": "com.zhes.handson",
+      "name": "Hands On",
+      "version": "0.0.1",
+      "author": "Zhes",
+      "description": "Забудьте о контроллерах: в Hands On каждое движение и контакт подчиняются честным законам физики. Сортируйте предметы, нажимайте механизмы и открывайте новый уровень тактильного погружения. Оставшиеся уровни в разработке...",
+      "display": "scene",
+      "type": "bundle",
+      "minApiVersion": 2,
+      "icon": "apps/com.zhes.handson/icon.png",
+      "preview": "apps/com.zhes.handson/preview.png",
+      "platforms": {
+        "iOS": {
+          "url": "apps/com.zhes.handson/app_ios.emr",
+          "size": 19164550,
+          "sha256": "2519e7fcf5c37d0794ea3eabfc52419f4ac3c4ab2e58aa336eedd7a57acd0d2d"
+        },
+        "Android": {
+          "url": "apps/com.zhes.handson/app_android.emr",
+          "size": 19373220,
+          "sha256": "5706218ae905d4b154566adf82071adf624200fc7f1e82869836d91717f619b6"
+        }
+      },
+      "createdAt": "2026-09-13T18:56:37+00:00",
       "updatedAt": "2026-11-03"
     }
   ]
