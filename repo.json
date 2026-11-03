@@ -1,7 +1,7 @@
 {
   "name": "Official ETMR Store",
   "version": 2,
-  "updated": "2026-10-26T07:03:28.783019Z",
+  "updated": "2026-11-03T14:46:42.951122Z",
   "apps": [
     {
       "id": "com.zhes.counter",
@@ -316,6 +316,27 @@
       },
       "createdAt": "2026-10-20T17:13:44+00:00",
       "updatedAt": "2026-10-25"
+    },
+    {
+      "id": "com.akundisco.restealbrainrot",
+      "name": "RE:Steal A Brainrot VR",
+      "version": "1.0.0",
+      "author": "AkunDiscoRemake",
+      "description": "Steal a Brainrot in VR! Buy ITALIAN brainrots on the red carpet (you start with $200), collect money in your base, then STEAL from other bases: hold for 5 seconds and run home! Defend with the bat, lock your base with lasers. Halloween nights, Candy and rare Lava events with boosts, 56 brainrots (Tralalero Tralala, Bombardiro Crocodilo, Los Tralaleritos...), mutations, rebirth. ONLINE multiplayer or solo with rival bots. Bacon Hair and Acorn Girl avatars. Walk with Joy-Cons (or hand gestures). English / Русский / Português.\nУкради брейнрот в VR! Покупай итальянских брейнротов, собирай деньги, воруй с чужих баз и беги домой. Онлайн или с ботами, Joy-Con, ивенты Хэллоуин, Конфеты и Лава.",
+      "display": "scene",
+      "type": "universal",
+      "minApiVersion": 2,
+      "icon": "apps/com.akundisco.restealbrainrot/icon.png",
+      "preview": "apps/com.akundisco.restealbrainrot/preview.png",
+      "platforms": {
+        "Universal": {
+          "url": "apps/com.akundisco.restealbrainrot/app_universal.emr",
+          "size": 9998932,
+          "sha256": "af6641706775d93f37bb9c1389ef9cd8bde5a03ede5dfbe5e199ea096559d43b"
+        }
+      },
+      "createdAt": "2026-10-19T19:49:39+00:00",
+      "updatedAt": "2026-11-03"
     }
   ]
 }
