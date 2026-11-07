@@ -1,7 +1,7 @@
 {
   "name": "Official ETMR Store",
   "version": 2,
-  "updated": "2026-11-03T21:16:43.943298Z",
+  "updated": "2026-11-07T18:49:58.754848Z",
   "apps": [
     {
       "id": "com.zhes.counter",
@@ -363,6 +363,32 @@
       },
       "createdAt": "2026-09-13T18:56:37+00:00",
       "updatedAt": "2026-11-03"
+    },
+    {
+      "id": "com.zhes.rcrush",
+      "name": "RCRush",
+      "version": "1.0.0",
+      "author": "Zhes",
+      "description": "Гоняй игрушечные машинки руками: трюки, гонки с ботами и друзьями - прямо у тебя на полу.",
+      "display": "scene",
+      "type": "bundle",
+      "minApiVersion": 2,
+      "icon": "apps/com.zhes.rcrush/icon.png",
+      "preview": "apps/com.zhes.rcrush/preview.png",
+      "platforms": {
+        "iOS": {
+          "url": "apps/com.zhes.rcrush/app_ios.emr",
+          "size": 2105594,
+          "sha256": "75c4feafd31dbce8e1907abd176efa1dbe0fa1524fa1bf8d1a94529c7cad844a"
+        },
+        "Android": {
+          "url": "apps/com.zhes.rcrush/app_android.emr",
+          "size": 2124414,
+          "sha256": "5c285e00d9e3649926cd8b09bd71e7e3f249160725065d53f4f2f0098616f601"
+        }
+      },
+      "createdAt": "2026-11-07T18:47:47+00:00",
+      "updatedAt": "2026-11-07"
     }
   ]
 }
