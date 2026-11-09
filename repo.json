@@ -1,7 +1,7 @@
 {
   "name": "Official ETMR Store",
   "version": 2,
-  "updated": "2026-11-07T18:49:58.754848Z",
+  "updated": "2026-11-09T17:30:36.255532Z",
   "apps": [
     {
       "id": "com.zhes.counter",
@@ -389,6 +389,27 @@
       },
       "createdAt": "2026-11-07T18:47:47+00:00",
       "updatedAt": "2026-11-07"
+    },
+    {
+      "id": "com.velzevyl.paint",
+      "name": "Paint!",
+      "version": "1.0.0",
+      "author": "Вельзевул",
+      "description": "Рисуй собственными руками прямо в воздухе! Бери кисть, макай в краску и воду и пиши на настоящем холсте: мазки ложатся мокрыми, растушёвываются и даже стекают каплями, а губка стирает всё лишнее. Выбирай, где творить: в уютной мастерской или на камне посреди леса с озером и снежными горами. Никаких джойстиков - только твои руки, холст и вдохновение. Сможешь нарисовать шедевр?",
+      "display": "scene",
+      "type": "universal",
+      "minApiVersion": 2,
+      "icon": "apps/com.velzevyl.paint/icon.png",
+      "preview": "apps/com.velzevyl.paint/preview.png",
+      "platforms": {
+        "Universal": {
+          "url": "apps/com.velzevyl.paint/app_universal.emr",
+          "size": 2628623,
+          "sha256": "855e6acc32db05b18bf465832ff4e1eaa87dddb074bbf6343d4570d39279578c"
+        }
+      },
+      "createdAt": "2026-11-09T12:39:19+00:00",
+      "updatedAt": "2026-11-09"
     }
   ]
 }
